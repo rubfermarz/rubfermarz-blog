@@ -1,6 +1,7 @@
 ## To-Do List
 
 - [ ] Implement login functionality
+- [ ] Implement basic routing
 - [ ] Create user registration form
 - [ ] Design homepage layout
 - [ ] Add responsive styling to the website
