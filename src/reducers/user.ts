@@ -8,7 +8,6 @@ export const USER_ACTION_TYPES = {
   CLEAR_USER: 'CLEAR_USER',
 };
 
-// update localStorage with state for cart
 export const updateLocalStorage = (state: User | null) => {
   window.localStorage.setItem('user', JSON.stringify(state));
 };

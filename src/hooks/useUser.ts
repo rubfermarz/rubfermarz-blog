@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { UserContextInstance } from '../context/User';
+import UserContext from '../context/interfaces/UserContextType';
 
-const useUser = () => {
+const useUser = (): UserContext | null => {
   const context = useContext(UserContextInstance);
 
   if (context === undefined) {

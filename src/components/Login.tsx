@@ -19,7 +19,6 @@ function Login() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    // Perform login logic here
     if (!username || !password) return;
     setUser({
       name: username,

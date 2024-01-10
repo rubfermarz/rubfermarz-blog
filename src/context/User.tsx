@@ -18,8 +18,6 @@ function useUserReducer() {
   return { state, setUser, clearUser };
 }
 
-// la dependencia de usar React Context
-// es MÍNIMA
 export function UserProvider({ children }: any) {
   const { state, setUser, clearUser } = useUserReducer();
 
