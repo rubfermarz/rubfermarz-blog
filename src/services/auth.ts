@@ -41,7 +41,7 @@ export async function signIn(setUser: any, email: string, password: string) {
   });
 }
 
-export async function createAccount(setUser: any, user: User, password: string) {
+export async function createAccount(user: User, password: string) {
   return createUserWithEmailAndPassword(auth, user.email, password).then((userCredential) => {
     FirestoreService('users').createWithId(userCredential.user.uid, {
       displayName: user.displayName,

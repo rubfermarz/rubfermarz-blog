@@ -4,11 +4,10 @@ import TextInput from './TextInput';
 import { createAccount } from '../services/auth';
 
 interface Props {
-  setUser: any;
   backAction: any;
 }
 
-function Register({ setUser, backAction }: Props): JSX.Element {
+function Register({ backAction }: Props): JSX.Element {
   const emailId = useId();
   const passwordId = useId();
   const repeatPasswordId = useId();
@@ -19,7 +18,7 @@ function Register({ setUser, backAction }: Props): JSX.Element {
     const { password } = formData;
     delete formData.password;
     delete formData.repeatPassword;
-    createAccount(setUser, formData, password);
+    createAccount(formData, password);
   };
 
   const handleBack = () => {
