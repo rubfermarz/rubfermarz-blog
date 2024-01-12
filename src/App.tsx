@@ -1,11 +1,8 @@
 import './App.css';
+import Login from './components/Login';
 
-export function App() {
-  return (
-    <div className="App">
-      <h1>React App</h1>
-    </div>
-  );
+function App() {
+  return <Login />;
 }
 
 export default App;
