@@ -1,0 +1,6 @@
+.login-btn-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
