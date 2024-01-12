@@ -30,7 +30,7 @@ function Login() {
         </div>
       )}
       {!user && !register && <SignIn handleRegister={handleRegister} setUser={setUser} />}
-      {register && !user && <Register setUser={setUser} backAction={handleRegister} />}
+      {register && !user && <Register backAction={handleRegister} />}
     </div>
   );
 }
