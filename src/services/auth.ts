@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import FirestoreService from './firestore';
@@ -27,6 +28,10 @@ export async function signOut(clearUser: any) {
   return auth.signOut().then(() => {
     clearUser();
   });
+}
+
+export async function forgotPassword(email: string) {
+  return sendPasswordResetEmail(auth, email).then(() => {});
 }
 
 export async function signIn(setUser: any, email: string, password: string) {
