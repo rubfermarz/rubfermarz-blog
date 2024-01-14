@@ -63,7 +63,7 @@ function SignIn(): JSX.Element {
         </div>
       </Form>
       <footer className="pb-8">
-        <a className="text-indigo-700 hover:text-pink-700 text-sm float-left" href="/forgot-password">
+        <a className="text-indigo-700 hover:text-pink-700 text-sm float-left" href="./forgot-password">
           Forgot Password?
         </a>
         <a className="text-indigo-700 hover:text-pink-700 text-sm float-right" href="./sign-up" type="button">
