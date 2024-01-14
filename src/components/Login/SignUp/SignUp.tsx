@@ -15,7 +15,7 @@ interface Props {
   confirmationAction: any;
 }
 
-function Register({ backAction, confirmationAction }: Props): JSX.Element {
+function Register({ backAction, confirmationAction }: Readonly<Props>): JSX.Element {
   const methods = useForm();
   const [error, setError] = useState(null);
 

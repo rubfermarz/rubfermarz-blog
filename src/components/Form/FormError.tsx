@@ -3,13 +3,11 @@ interface FormErrorProps {
   translationFile: any;
 }
 
-function FormError({ error, translationFile }: FormErrorProps): JSX.Element {
+function FormError({ error, translationFile }: Readonly<FormErrorProps>): JSX.Element {
   let errorText: string | null = null;
 
   if (error) {
     errorText = translationFile[error]?.message;
-  } else {
-    errorText = null;
   }
 
   return (

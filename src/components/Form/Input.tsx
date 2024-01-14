@@ -28,7 +28,7 @@ const framerError = {
   transition: { duration: 0.2 },
 };
 
-function InputError({ message }: InputErrorProps): JSX.Element {
+function InputError({ message }: Readonly<InputErrorProps>): JSX.Element {
   return (
     <motion.p
       className="flex items-center gap-1 px-2 font-semibold text-red-500 bg-red-100 rounded-md block mb-2"
@@ -50,7 +50,7 @@ export function Input({
   validation,
   multiline,
   className,
-}: InputProps): JSX.Element {
+}: Readonly<InputProps>): JSX.Element {
   const {
     register,
     formState: { errors, isSubmitting },

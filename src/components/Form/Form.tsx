@@ -6,7 +6,7 @@ interface FormProps {
   children?: React.ReactNode;
 }
 
-function Form({ children, methods }: FormProps) {
+function Form({ children, methods }: Readonly<FormProps>) {
   return (
     <FormProvider {...methods}>
       <form onSubmit={(e) => e.preventDefault()} noValidate autoComplete="off" className="container">
@@ -14,7 +14,7 @@ function Form({ children, methods }: FormProps) {
       </form>
       {methods.formState.isSubmitting && (
         <div className="absolute inset-0 flex justify-center items-center z-10 bg-white opacity-60 rounded-lg">
-          <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
+          <output className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
             <svg
               aria-hidden="true"
               className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -32,7 +32,7 @@ function Form({ children, methods }: FormProps) {
               />
             </svg>
             <span className="sr-only">Loading...</span>
-          </div>
+          </output>
         </div>
       )}
     </FormProvider>

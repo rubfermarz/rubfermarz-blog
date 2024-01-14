@@ -23,8 +23,8 @@ function Login() {
     setRegister(!register);
   };
 
-  const handleConfirmationLink = () => {
-    setEmail(email);
+  const handleConfirmationLink = (newEmail: string) => {
+    setEmail(newEmail);
     setConfirmationLink(true);
   };
 
