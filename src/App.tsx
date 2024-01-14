@@ -2,13 +2,13 @@ import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import loadable from '@loadable/component';
 
 import './App.css';
-import NotFound from './pages/NotFound/NotFound';
 
 const Login = loadable(() => import('./pages/Login/Login'));
 const SignIn = loadable(() => import('./pages/Login/SignIn/SignIn'));
 const SignUp = loadable(() => import('./pages/Login/SignUp/SignUp'));
 const ForgotPassword = loadable(() => import('./pages/Login/ForgotPassword/ForgotPassword'));
 const Home = loadable(() => import('./pages/Home/Home'));
+const NotFound = loadable(() => import('./pages/NotFound/NotFound'));
 
 function App() {
   return (
