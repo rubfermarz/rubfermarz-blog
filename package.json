@@ -16,6 +16,7 @@
     "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier . --write --ignore-unknown"
   },
   "dependencies": {
+    "@loadable/component": "^5.16.3",
     "autoprefixer": "^10.4.16",
     "classnames": "^2.5.1",
     "firebase": "^10.7.1",
@@ -23,9 +24,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.21.2"
   },
   "devDependencies": {
+    "@types/loadable__component": "^5.13.8",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

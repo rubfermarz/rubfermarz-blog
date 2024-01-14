@@ -9,11 +9,7 @@ import { forgotPassword } from '../../../services/auth';
 import FormError from '../../Form/FormError';
 import HTTP_ERRORS from './HTTP_ERRORS.json';
 
-interface Props {
-  handleBack: any;
-}
-
-function ForgotPassword({ handleBack }: Readonly<Props>): JSX.Element {
+function ForgotPassword(): JSX.Element {
   const [email, setEmail] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
@@ -57,14 +53,13 @@ function ForgotPassword({ handleBack }: Readonly<Props>): JSX.Element {
               >
                 Send Reset Link
               </button>
-              <button
-                className="w-full bg-white border-solid hover:bg-gray-100 text-black font-bold py-2 px-4 mb-2 rounded inline-flex items-center justify-center gap-2"
-                type="button"
-                onClick={handleBack}
+              <a
+                className="w-full bg-white border-solid hover:bg-gray-100 text-black font-bold py-2 px-4 mb-2 rounded inline-flex items-center justify-center gap-2 "
+                href="./sign-in"
               >
                 <IoIosArrowBack />
                 Back to login
-              </button>
+              </a>
             </div>
           </Form>
         </div>
@@ -86,21 +81,19 @@ function ForgotPassword({ handleBack }: Readonly<Props>): JSX.Element {
             </p>
           </div>
           <div className="mt-5">
-            <button
-              className="w-full bg-indigo-700 hover:bg-pink-700 text-white font-bold py-2 px-4 mb-4 rounded"
-              type="button"
-              onClick={handleBack}
+            <a
+              className="w-full bg-white border-solid hover:bg-gray-100 text-black font-bold py-2 px-4 mb-2 rounded inline-flex items-center justify-center"
+              href="/"
             >
-              Back to login
-            </button>
-            <button
-              className="w-full bg-white border-solid hover:bg-gray-100 text-black font-bold py-2 px-4 mb-2 rounded inline-flex items-center justify-center gap-2"
-              type="button"
-              onClick={handleBack}
+              Go to home
+            </a>
+            <a
+              className="w-full bg-indigo-700 hover:bg-pink-700 text-white font-bold py-2 px-4 mb-4 rounded inline-flex items-center justify-center gap-2"
+              href="./sign-in"
             >
               <IoIosArrowBack />
-              Go to home
-            </button>
+              Back to login
+            </a>
           </div>
         </div>
       )}
