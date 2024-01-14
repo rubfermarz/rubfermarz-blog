@@ -1,7 +1,4 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import firebase from 'firebase/compat/app';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBrPrUpeq3yZ-2_zx8dCL2NJ_y1Cemot6c',
@@ -13,7 +10,27 @@ const firebaseConfig = {
   measurementId: 'G-T1JPYXJN0E',
 };
 
-const app = initializeApp(firebaseConfig);
-getAnalytics(app);
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+
+export async function getFirestoreInstance() {
+  if (!firebase.firestore) {
+    await import('firebase/compat/firestore');
+  }
+
+  return firebase.firestore(app);
+}
+
+export async function getAnalyticsInstance() {
+  if (!firebase.analytics) {
+    await import('firebase/compat/analytics');
+  }
+
+  return firebase.analytics(app);
+}
+
+export async function getAuthInstance() {
+  if (!firebase.auth) {
+    await import('firebase/compat/auth');
+  }
+  return firebase.auth(app);
+}

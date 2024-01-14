@@ -1,33 +1,33 @@
-import {
-  doc,
-  getDoc,
-  QueryFieldFilterConstraint,
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  setDoc,
-} from 'firebase/firestore';
-import { db } from '../components/firebase';
+import { getFirestoreInstance } from '../components/firebase';
 
 function FirestoreService(basePath: string) {
-  const collection$ = async (queryFn?: QueryFieldFilterConstraint) => {
+  const collection$ = async (queryFn?: any) => {
+    const firestore = await getFirestoreInstance();
     if (queryFn) {
-      return getDocs(query(collection(db, `${basePath}`), queryFn)).finally(() => {});
+      return firestore.collection(`${basePath}`).where(queryFn[0], queryFn[1], queryFn[2]).get();
     }
-    return getDocs(collection(db, `${basePath}`)).finally(() => {});
+    return firestore.collection(`${basePath}`).get();
   };
 
   const doc$ = async (id: string) => {
-    return getDoc(doc(db, `${basePath}`, `${id}`)).finally(() => {});
+    const firestore = await getFirestoreInstance();
+    return firestore.doc(`${basePath}/${id}`).get();
   };
 
   const createWithId = async (id: string, newValue: any) => {
-    return setDoc(doc(db, `${basePath}`, `${id}`), newValue).then(() => {});
+    const firestore = await getFirestoreInstance();
+    return firestore
+      .doc(`${basePath}/${id}`)
+      .set(newValue)
+      .then(() => {});
   };
 
   const create = async (newValue: any) => {
-    return addDoc(collection(db, `${basePath}`), newValue).then(() => {});
+    const firestore = await getFirestoreInstance();
+    return firestore
+      .collection(`${basePath}`)
+      .add(newValue)
+      .then(() => {});
   };
 
   return { collection$, create, createWithId, doc$ };

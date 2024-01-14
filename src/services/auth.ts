@@ -1,12 +1,5 @@
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-} from 'firebase/auth';
-import { auth } from '../components/firebase';
+import { GoogleAuthProvider, sendEmailVerification } from 'firebase/auth';
+import { getAuthInstance } from '../components/firebase';
 import FirestoreService from './firestore';
 import User from '../interfaces/User';
 
@@ -15,43 +8,57 @@ export async function signInWithGoogle(setUser: any) {
   provider.setCustomParameters({
     prompt: 'select_account ',
   });
-
-  return signInWithPopup(auth, provider).then((userCredential) => {
+  const auth = await getAuthInstance();
+  return auth.signInWithPopup(provider).then((userCredential) => {
     setUser({
-      name: userCredential.user.displayName,
+      name: userCredential.user?.displayName,
     });
     return userCredential;
   });
 }
 
 export async function signOut(clearUser: any) {
+  const auth = await getAuthInstance();
   return auth.signOut().then(() => {
     clearUser();
   });
 }
 
 export async function forgotPassword(email: string) {
-  return sendPasswordResetEmail(auth, email).then(() => {});
+  const auth = await getAuthInstance();
+  return auth.sendPasswordResetEmail(email).then(() => {});
 }
 
 export async function signIn(setUser: any, email: string, password: string) {
-  return signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-    FirestoreService('users')
-      .doc$(userCredential.user.uid)
-      .then((doc) => {
-        const user = doc.data();
-        setUser(user);
-      });
-    return userCredential;
+  const auth = await getAuthInstance();
+  return auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
+    if (userCredential.user?.emailVerified) {
+      FirestoreService('users')
+        .doc$(userCredential.user.uid)
+        .then((doc) => {
+          const user = doc.data();
+          setUser(user);
+          return userCredential;
+        });
+    }
   });
 }
 
 export async function createAccount(user: User, password: string) {
-  return createUserWithEmailAndPassword(auth, user.email, password).then((userCredential) => {
-    FirestoreService('users').createWithId(userCredential.user.uid, {
-      displayName: user.displayName,
-    });
-    sendEmailVerification(userCredential.user).then(() => {});
-    return userCredential;
+  const auth = await getAuthInstance();
+  return auth.createUserWithEmailAndPassword(user.email, password).then((userCredential) => {
+    if (userCredential.user !== null) {
+      return FirestoreService('users')
+        .createWithId(userCredential.user.uid, {
+          displayName: user.displayName,
+        })
+        .then(() => {
+          if (userCredential.user !== null) {
+            return sendEmailVerification(userCredential.user);
+          }
+          return null;
+        });
+    }
+    return null;
   });
 }

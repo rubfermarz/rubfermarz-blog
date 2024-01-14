@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import useUser from '../../hooks/useUser';
 import UserContext from '../../context/interfaces/UserContextType';
 import { signOut } from '../../services/auth';
-import Register from './SignUp/SignUp';
-import SignIn from './SignIn/SignIn';
-import ConfirmationEmailSent from './ConfirmationEmailSent/ConfirmationEmailSent';
-import ForgotPassword from './ForgotPassword/ForgotPassword';
+
+const Register = React.lazy(() => import('./SignUp/SignUp'));
+const SignIn = React.lazy(() => import('./SignIn/SignIn'));
+const ConfirmationEmailSent = React.lazy(() => import('./ConfirmationEmailSent/ConfirmationEmailSent'));
+const ForgotPassword = React.lazy(() => import('./ForgotPassword/ForgotPassword'));
 
 function Login() {
   const { user, clearUser, setUser } = useUser() as UserContext;
@@ -49,19 +50,21 @@ function Login() {
         </div>
       )}
 
-      {forgotPassword && !confirmationLink && !user && !register && <ForgotPassword handleBack={handleBack} />}
-      {!forgotPassword && confirmationLink && !user && register && (
-        <ConfirmationEmailSent email={email} handleBack={handleBack} />
-      )}
-      {!confirmationLink && !forgotPassword && (
-        <header className="justify-center inline-flex w-full">
-          <FaUserCircle className="text-8xl text-indigo-500" />
-        </header>
-      )}
-      {!forgotPassword && !user && !register && !confirmationLink && <SignIn setUser={setUser} />}
-      {register && !user && !confirmationLink && (
-        <Register backAction={handleRegister} confirmationAction={handleConfirmationLink} />
-      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        {forgotPassword && !confirmationLink && !user && !register && <ForgotPassword handleBack={handleBack} />}
+        {!forgotPassword && confirmationLink && !user && register && (
+          <ConfirmationEmailSent email={email} handleBack={handleBack} />
+        )}
+        {!confirmationLink && !forgotPassword && (
+          <header className="justify-center inline-flex w-full">
+            <FaUserCircle className="text-8xl text-indigo-500" />
+          </header>
+        )}
+        {!forgotPassword && !user && !register && !confirmationLink && <SignIn setUser={setUser} />}
+        {register && !user && !confirmationLink && (
+          <Register backAction={handleRegister} confirmationAction={handleConfirmationLink} />
+        )}
+      </Suspense>
       {!forgotPassword && !register && !user && !confirmationLink && (
         <footer className="pb-8">
           <button

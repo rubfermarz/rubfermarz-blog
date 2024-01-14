@@ -13,7 +13,7 @@ interface Props {
   handleBack: any;
 }
 
-function ForgotPassword({ handleBack }: Props): JSX.Element {
+function ForgotPassword({ handleBack }: Readonly<Props>): JSX.Element {
   const [email, setEmail] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
