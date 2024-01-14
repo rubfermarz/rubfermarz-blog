@@ -7,13 +7,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix && prettier . --write --ignore-unknown",
     "preview": "vite preview",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
-    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
+    "src/**/*.{js,jsx,ts,tsx}": "eslint . --cache --fix",
+    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier . --write --ignore-unknown"
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
